@@ -10,6 +10,7 @@ camera.lookAt 0, 200, 0
 
 renderer = new THREE.WebGLRenderer()
 renderer.setSize(window.innerWidth, window.innerHeight)
+renderer.setClearColor 0x786743
 document.body.appendChild(renderer.domElement)
 
 board = new Board()
@@ -20,22 +21,13 @@ setup = ->
   orbit.update()
   orbit.addEventListener 'change', render
   # lights
-  topLight = new THREE.DirectionalLight 0xfff8e3, 1
-  bottomLeftLight = new THREE.DirectionalLight 0xfff8e3
-  bottomRightLight = new THREE.DirectionalLight 0xfff8e3
-  bottomFrontLight = new THREE.DirectionalLight 0xfff8e3
-  bottomBackLight = new THREE.DirectionalLight 0xfff8e3
+  topLeftLight = new THREE.DirectionalLight 0xfff8e3, 0.5
+  topRightLight = new THREE.DirectionalLight 0xfff8e3, 0.5
+  topLeftLight.position.set -50, 100, 0
+  topRightLight.position.set 50, 100, 0
 
-  bottomLeftLight.position.set 0, -100, 50
-  bottomRightLight.position.set 0, -100, -50
-  bottomFrontLight.position.set 50, -100, 0
-  bottomBackLight.position.set -50, -100, 0
-
-  scene.add topLight
-  scene.add bottomLeftLight
-  scene.add bottomRightLight
-  scene.add bottomFrontLight
-  scene.add bottomBackLight
+  scene.add topRightLight
+  scene.add topLeftLight
 
 render = ->
   renderer.render(scene, camera)
