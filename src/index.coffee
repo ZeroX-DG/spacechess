@@ -15,11 +15,27 @@ document.body.appendChild(renderer.domElement)
 board = new Board()
 
 setup = ->
-  boardBox = board.setup(render)
+  board.setup(scene, render)
   orbit = new OrbitControls camera, renderer.domElement
   orbit.update()
   orbit.addEventListener 'change', render
-  scene.add boardBox
+  # lights
+  topLight = new THREE.DirectionalLight 0xfff8e3, 1
+  bottomLeftLight = new THREE.DirectionalLight 0xfff8e3
+  bottomRightLight = new THREE.DirectionalLight 0xfff8e3
+  bottomFrontLight = new THREE.DirectionalLight 0xfff8e3
+  bottomBackLight = new THREE.DirectionalLight 0xfff8e3
+
+  bottomLeftLight.position.set 0, -100, 50
+  bottomRightLight.position.set 0, -100, -50
+  bottomFrontLight.position.set 50, -100, 0
+  bottomBackLight.position.set -50, -100, 0
+
+  scene.add topLight
+  scene.add bottomLeftLight
+  scene.add bottomRightLight
+  scene.add bottomFrontLight
+  scene.add bottomBackLight
 
 render = ->
   renderer.render(scene, camera)
